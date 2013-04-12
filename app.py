@@ -4,7 +4,7 @@ import os
 import urllib
 import urllib2
 
-from flask import Flask, Response, request, render_template
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
