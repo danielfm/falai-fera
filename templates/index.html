@@ -3,14 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Falaí, fera</title>
+    <title>Falaí, fera!</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      function enablePreview(b) {
+        if (b) {
+          $("#preview").removeAttr("disabled");
+        } else {
+          $("#preview").attr("disabled", "disabled");
+        }
+      }
+
+      function preview(text) {
+        var audio = new Audio();
+
+        audio.addEventListener('loadstart', function() {
+          enablePreview(false);
+        });
+
+        audio.addEventListener('ended', function() {
+          enablePreview(true);
+        });
+
+        audio.src = "/speak?text=" + escape(text);
+        audio.play();
+      }
+
+      $(function() {
+        $("#preview").click(function() {
+          preview($("#text").val());
+        });
+      });
+    </script>
   </head>
   <body>
-    <h1>Falaí, fera</h1>
+    <h1>Falaí, fera!</h1>
 
     <form action="/speak">
-      <textarea name="text" rows="10" cols="100">Rafael Biriba cara de tabaco</textarea><br/>
-      <input type="submit" name="submit" value="Me dá o .mp3!"/>
+      <textarea id="text" name="text" rows="10" cols="100">Rafael Biriba cara de tabaco</textarea><br/>
+      <button id="preview" type="button">Preview</button>
+      <button>Download</button>
     </form>
   </body>
 </html>
